@@ -60,6 +60,7 @@ module "gke-project-0" {
     "anthosconfigmanagement.googleapis.com",
     "cloudresourcemanager.googleapis.com",
     "container.googleapis.com",
+    "compute.googleapis.com",
     "dns.googleapis.com",
     "gkeconnect.googleapis.com",
     "gkehub.googleapis.com",
@@ -71,6 +72,16 @@ module "gke-project-0" {
     "orgpolicy.googleapis.com",
     "trafficdirector.googleapis.com"
   ]
+  service_encryption_key_ids = {
+    compute = toset(flatten([
+      [for k, v in var.clusters : try(v.node_config.boot_disk_kms_key, null)],
+      [
+        for k, v in var.nodepools : [
+          for nk, nv in v : try(nv.node_config.boot_disk_kms_key, null)
+        ]
+      ]
+    ]))
+  }
   shared_vpc_service_config = {
     attach = true
     host_project = lookup(
