@@ -154,6 +154,7 @@ variable "projects" {
     })), {})
     contacts = optional(map(list(string)), {})
     datasets = optional(map(object({
+      encryption_key = optional(string)
       friendly_name = optional(string)
       location      = optional(string)
     })), {})

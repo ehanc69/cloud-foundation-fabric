@@ -21,6 +21,7 @@ locals {
         project_key   = k
         project_name  = v.name
         id            = name
+        encryption_key = lookup(opts, "encryption_key", null)
         friendly_name = lookup(opts, "friendly_name", null)
         location      = lookup(opts, "location", null)
       }
@@ -46,6 +47,7 @@ module "bigquery-datasets" {
     locations   = local.ctx.locations
     project_ids = local.ctx_project_ids
   })
+  encryption_key = each.value.encryption_key
   friendly_name = each.value.friendly_name
   location = coalesce(
     local.data_defaults.overrides.locations.bigquery,
