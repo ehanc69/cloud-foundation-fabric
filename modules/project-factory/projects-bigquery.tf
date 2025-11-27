@@ -54,4 +54,8 @@ module "bigquery-datasets" {
     lookup(each.value, "location", null),
     local.data_defaults.defaults.locations.bigquery
   )
+
+  depends_on = [
+    module.projects-iam
+  ]
 }

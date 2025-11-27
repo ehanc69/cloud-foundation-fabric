@@ -25,19 +25,22 @@ services:
   - logging.googleapis.com
   - pubsub.googleapis.com
   - storage.googleapis.com
-service_encryption_key_ids:
-  logging.googleapis.com: 
-    - $kms_keys:log-0/ew1/logging
 kms:
   keyrings:
     ew1:
       location: europe-west1
       keys:
         logging: {}
+service_encryption_key_ids:
+  logging.googleapis.com: 
+    - $kms_keys:log-0/ew1/logging
 log_buckets:
-  audit-logs: {}
-  iam: {}
+  audit-logs:
+    kms_key_name: $kms_keys:log-0/ew1/logging
+  iam:
+    kms_key_name: $kms_keys:log-0/ew1/logging
   vpc-sc:
+    kms_key_name: $kms_keys:log-0/ew1/logging
     log_analytics:
       enable: true
     retention: 31
