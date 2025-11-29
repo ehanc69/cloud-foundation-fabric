@@ -67,19 +67,23 @@ module "gke-project-0" {
     "iam.googleapis.com",
     "logging.googleapis.com",
     "monitoring.googleapis.com",
+    "pubsub.googleapis.com",
     "multiclusteringress.googleapis.com",
     "multiclusterservicediscovery.googleapis.com",
     "orgpolicy.googleapis.com",
     "trafficdirector.googleapis.com"
   ]
   service_encryption_key_ids = {
-    compute = toset(flatten([
+    "container.googleapis.com" = toset(flatten([
       [for k, v in var.clusters : try(v.node_config.boot_disk_kms_key, null)],
       [
         for k, v in var.nodepools : [
           for nk, nv in v : try(nv.node_config.boot_disk_kms_key, null)
         ]
       ]
+    ]))
+    "pubsub.googleapis.com" = toset(flatten([
+      [for k, v in var.clusters : try(v.enable_features.upgrade_notifications.kms_key_name, null)],
     ]))
   }
   shared_vpc_service_config = {

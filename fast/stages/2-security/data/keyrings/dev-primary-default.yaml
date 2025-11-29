@@ -17,6 +17,8 @@
 location: $locations:primary
 project_id: $project_ids:dev-sec-core-0
 keys:
+  bigquery: {}
+  composer: {}
   compute: {}
   storage: {}
   gke: {}
