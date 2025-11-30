@@ -18,12 +18,12 @@ locals {
   projects_bigquery_datasets = flatten([
     for k, v in local.projects_input : [
       for name, opts in lookup(v, "datasets", {}) : {
-        project_key   = k
-        project_name  = v.name
-        id            = name
+        project_key    = k
+        project_name   = v.name
+        id             = name
         encryption_key = lookup(opts, "encryption_key", null)
-        friendly_name = lookup(opts, "friendly_name", null)
-        location      = lookup(opts, "location", null)
+        friendly_name  = lookup(opts, "friendly_name", null)
+        location       = lookup(opts, "location", null)
       }
     ]
   ])
@@ -48,7 +48,7 @@ module "bigquery-datasets" {
     project_ids = local.ctx_project_ids
   })
   encryption_key = each.value.encryption_key
-  friendly_name = each.value.friendly_name
+  friendly_name  = each.value.friendly_name
   location = coalesce(
     local.data_defaults.overrides.locations.bigquery,
     lookup(each.value, "location", null),

@@ -43,7 +43,7 @@ locals {
       for kk, vv in v : "${local.ctx_p}${k}:${kk}" => vv
     } if k != "condition_vars"
   }
-  ctx_p = "$"
+  ctx_p        = "$"
   ctx_kms_keys = try(local.ctx.kms_keys, {})
   identities_view = {
     for k, v in local.access_view : k => try(
