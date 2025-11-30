@@ -32,13 +32,13 @@ kms:
       keys:
         bigquery: {}
 service_encryption_key_ids:
-  bigquery.googleapis.com: 
+  bigquery.googleapis.com:
     - $kms_keys:billing-0/ew1/bigquery
 org_policies:
   gcp.restrictCmekCryptoKeyProjects:
     rules:
-    - allow:
-        all: true
+      - allow:
+          all: true
 datasets:
   billing_export:
     friendly_name: Billing export

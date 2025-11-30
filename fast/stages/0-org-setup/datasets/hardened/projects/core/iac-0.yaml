@@ -81,13 +81,13 @@ kms:
       keys:
         storage: {}
 service_encryption_key_ids:
-  storage.googleapis.com: 
+  storage.googleapis.com:
     - $kms_keys:iac-0/ew1/storage
 org_policies:
   gcp.restrictCmekCryptoKeyProjects:
     rules:
-    - allow:
-        all: true
+      - allow:
+          all: true
   iam.workloadIdentityPoolProviders:
     rules:
       - allow:

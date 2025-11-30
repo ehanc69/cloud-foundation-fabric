@@ -32,7 +32,7 @@ kms:
       keys:
         logging: {}
 service_encryption_key_ids:
-  logging.googleapis.com: 
+  logging.googleapis.com:
     - $kms_keys:log-0/ew1/logging
 log_buckets:
   audit-logs:
@@ -49,8 +49,8 @@ factories_config:
 org_policies:
   gcp.restrictCmekCryptoKeyProjects:
     rules:
-    - allow:
-        all: true
+      - allow:
+          all: true
   custom.storageRequireBucketObjectVersionning:
     rules:
       - enforce: true
